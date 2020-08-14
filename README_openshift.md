@@ -15,7 +15,7 @@
 * Kubectl, versions {1.18-1.14}
 
 ## AnzoGraph Docker Images Used for Deployment
-When you deploy AnzoGraph cluster using operator, following are the set of images used for actual cluster deployments. We have given reference docker commands to download the latest releases for each of them below.
+When you deploy an AnzoGraph cluster using the operator, there are three images available to use for the cluster deployments. The images are listed below. The Docker commands for downloading the latest release of each image are included for reference.
 
 ### AnzoGraph Operator
 
@@ -36,23 +36,24 @@ When you deploy AnzoGraph cluster using operator, following are the set of image
 ### AnzoGraph Frontend
 
 * If you want to enable UI for the AnzoGraph database, following is the image used.
+
    ```sh
    docker pull registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:latest
    ```
 
 ## Steps to deploy anzograph-operator
-Deployment of AnzoGraph cluster can be achieved in three simple steps.
+Deployment of an AnzoGraph cluster can be achieved in three simple steps.
 
 ### Step 1:
 #### Deploy Operator along with all pre-requisites:
-With the help of following command, you will install operator along with all pre-deployment configurations needed, i.e. RBAC, PodSecurityPolicy, Service Account, CustomResourceDefinition(CRD) and a dedicated 'anzograph' namespace.
+With the following command you will install the operator along with all required pre-deployment configurations, i.e. RBAC, PodSecurityPolicy, Service Account, CustomResourceDefinition(CRD) and a dedicated 'anzograph' namespace.
 ```sh
 kubectl apply -f https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/deploy/pre_requisites_all_in_one.yaml
 ```
 
 ### Step 2:
 #### Deploy Custom Resource for AnzoGraph Cluster:
-You will get AnzoGraph cluster ready to use by
+You will get the AnzoGraph cluster ready to use by running
 ```sh
 kubectl apply -f https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/deploy/crds/anzograph_v1_anzograph_cr_openshift.yaml --namespace anzograph
 ```
@@ -64,11 +65,11 @@ kubectl describe anzograph/<cr-name> --namespace anzograph
 ```
 
 **NOTE:** 
-1. If you like to use namespace other than 'anzograph', please edit above two YAMLs to create and reference namespace correctly.
-2. If you wish to use images other than latest, please specify them with correct tags in YAMLs.
+1. If you want to use a namespace other than 'anzograph', please edit the two YAMLs above to create and reference the namespace correctly.
+2. If you wish to use images other than 'latest', please specify alternate tags in the YAMLs.
 
 ## Steps to delete AnzoGraph CR and anzograph-operator
-Tearing down running AnzoGraph cluster is also easy and can be achieved using following steps.
+Tearing down a running AnzoGraph cluster is also easy and can be achieved using the following steps.
 
 ### Step 1:
 #### Delete Custom Resource:
