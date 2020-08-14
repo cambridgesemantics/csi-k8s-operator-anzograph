@@ -1,0 +1,145 @@
+###########################################################
+# Copyright (c) 2016-2019 Cambridge Semantics Incorporated.
+# All rights reserved.
+###########################################################
+
+apiVersion: anzograph.clusters.cambridgesemantics.com/v1
+kind: AnzoGraph
+metadata:
+  name: azg01
+  namespace: anzograph
+  labels:
+    testkey1: testval1
+    testkey2: testval3
+spec:
+  serviceAccountName: anzograph-operator
+  dbSpec:
+    size: 1
+    image:
+      registry: "registry.connect.redhat.com"
+      name: "cambridgesemantics/anzograph-db"
+      tag: "latest"
+      pullPolicy: "IfNotPresent"
+    resources:
+      requests:
+        cpu: "2000m"
+        memory: "7000Mi"
+      limits:
+        cpu: "16000m"
+        memory: "48000Mi"
+    # Specify annotations and ip ranges for db load balancer service
+    service:
+    #  annotations:
+    # Sample annotation to use AWS external load balancer, set this to "true" for internal load balancer
+    #    service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+    # Sample annotations for AWS idle timeout change and healthcheck interval
+    #    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "4000"
+    #    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "40"
+    # Annotation for AWS NLB
+    #    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    # Annotation for GCP internal load balancer
+    #    cloud.google.com/load-balancer-type: "Internal"
+    # Annotation for Azure internal load balancer
+    #    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    #  loadBalancerSourceRanges:
+    #    - "10.107.0.0/16"
+      spec:
+        type: NodePort
+    #volumes:
+    #- name: nfs1
+    #  mountPath: "/opt/nfs1"
+    #  pv:
+    #    capacity:
+    #      storage: 5Gi
+    #    accessModes:
+    #    - ReadWriteOnce
+    #    storageClassName: ""
+    #    persistentVolumeReclaimPolicy: Retain
+    #    nfs:
+    #      path: "/var/nfsshare"
+    #      server: 192.168.1.2
+    #      readOnly: false
+    #  pvc:
+    #    accessModes:
+    #    - ReadWriteOnce
+    #    storageClassName: ""
+    #    resources:
+    #      requests:
+    #        storage: 2Gi
+  frontendSpec:
+    size: 1
+    image:
+      registry: "registry.connect.redhat.com"
+      name: "cambridgesemantics/anzograph-frontend"
+      tag: "latest"
+      pullPolicy: "IfNotPresent"
+    resources:
+      requests:
+        cpu: "2000m"
+        memory: "4000Mi"
+      limits:
+        cpu: "8000m"
+        memory: "16000Mi"
+    # Specify annotations and ip ranges for frontend load balancer service, annotations mostly to vary as per CSP
+    service:
+    #  annotations:
+    # Sample annotation to use AWS external load balancer, set this to "true" for internal load balancer
+    #    service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+    # Sample annotations for AWS idle timeout change and healthcheck interval
+    #    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "4000"
+    #    service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "40"
+    # Annotation for AWS NLB
+    #    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    # Annotation for GCP internal load balancer
+    #    cloud.google.com/load-balancer-type: "Internal"
+    # Annotation for Azure internal load balancer
+    #    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    #  loadBalancerSourceRanges:
+    #    - "10.107.0.0/16"
+      spec:
+        type: NodePort
+    #volumes:
+    #- name: nfs1
+    #  mountPath: "/opt/nfs1"
+    #  pv:
+    #    capacity:
+    #      storage: 5Gi
+    #    accessModes:
+    #    - ReadWriteOnce
+    #    storageClassName: ""
+    #    persistentVolumeReclaimPolicy: Retain
+    #    nfs:
+    #      path: "/var/nfsshare"
+    #      server: 192.168.1.2
+    #      readOnly: false
+    #  pvc:
+    #    accessModes:
+    #    - ReadWriteOnce
+    #    storageClassName: ""
+    #    resources:
+    #      requests:
+    #        storage: 2Gi
+
+  #uiCredentials: "uiCredentialsSecret"
+  #grpcCredentials: "grpcCredentialsSecret"
+  deployFrontend: true
+  #license: ""
+  #uiUserCerts:
+  #  uiUserServiceCert: |
+  #  uiUserServiceKey: |
+  #  uiUserCACert: |
+  #keystoreCredentials: "keystoreCredentialsSecret"
+  #AnzoGraph's settings can be defined by named settings bundles called profiles.
+  #currently three profiles are supported:
+  #azgSettingsProfile: "anzo"
+  #Default value is standalone, specified as below
+  #azgSettingsProfile: "standalone"
+  #azgSettingsProfile: "custom"
+  #NOTE: When value of azgSettingsProfile is 'custom', also specify azgSettings parameter,
+  # which will create customized settings.conf for AnzoGraph.
+  # Uncomment and provide key value pairs of Anzograph settings variable.
+  #azgSettings:
+  #  enable_sparql_protocol: "false"
+  #  xray_sth_spool_maxgb: "1"
+  #  allow_thp_against_recommendations: "true"
+  #  extensions_dir: "/opt/anzograph/lib/udx/cpp,/opt/anzograph/lib/udx/jvm"

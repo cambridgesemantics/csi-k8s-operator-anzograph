@@ -1,0 +1,5 @@
+channels:
+- currentCSV: anzograph-operator.v1.3.0
+  name: beta
+defaultChannel: beta
+packageName: anzograph-operator

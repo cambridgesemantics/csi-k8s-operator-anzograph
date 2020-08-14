@@ -1,0 +1,44 @@
+###########################################################
+# Copyright (c) 2017-2020 Cambridge Semantics Incorporated.
+# All rights reserved.
+###########################################################
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anzograph-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: anzograph-operator
+  template:
+    metadata:
+      labels:
+        name: anzograph-operator
+    spec:
+      serviceAccountName: anzograph-operator
+      containers:
+        - name: anzograph-operator
+          image: us.gcr.io/cloud-sandbox-1162/cambridgesemantics/testing/anzograph-operator:1.3.0
+          command:
+          - anzograph-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "anzograph-operator"
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "0.25"
+              memory: "128Mi"
