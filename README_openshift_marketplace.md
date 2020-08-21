@@ -114,6 +114,30 @@ spec:
 
 ## Steps to deploy AnzoGraph Cluster
 
+#### Pre-requiste
+* Create a Security Context Constraint (SCC) for the service account to be able to start the AnzoGraph container as root. Note that the actual service in the container runs unprivileged.
+* Create a file called scc.yml and add the following contents to the file. **Replace keyword namespace with the actual value**
+```
+    apiVersion: security.openshift.io/v1
+    kind: SecurityContextConstraints
+    metadata:
+      name: csi-anyuid
+      namespace: namespace
+    priority: 10
+    runAsUser:
+      type: RunAsAny
+    seLinuxContext:
+      type: MustRunAs
+    supplementalGroups:
+      type: RunAsAny
+    fsGroup:
+      type: RunAsAny
+    users:
+    - system:serviceaccount:namespace:anzograph-operator
+```
+* Save the file and then run the following command to give OpenShift the SCC resource specification:
+* oc create -f scc.yml
+
 #### Operators --> Installed Operators --> AnzoGraph  Operator --> Create Instance
 <img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-create-anzograph.png" width="67%">
 
