@@ -28,10 +28,10 @@ spec:
     resources:
       requests:
         cpu: "2000m"
-        memory: "700Mi"
+        memory: "8Gi"
       limits:
         cpu: "16000m"
-        memory: "48000Mi"
+        memory: "48Gi"
     tolerations:
     - key: "node.kubernetes.io/not-ready"
       operator: "Exists"
@@ -109,10 +109,10 @@ spec:
     resources:
       requests:
         cpu: "2000m"
-        memory: "4000Mi"
+        memory: "4Gi"
       limits:
-        cpu: "8000m"
-        memory: "16000Mi"
+        cpu: "7000m"
+        memory: "8Gi"
     tolerations:
     - key: "node.kubernetes.io/not-ready"
       operator: "Exists"
@@ -193,4 +193,4 @@ spec:
   #  enable_sparql_protocol: "false"
   #  xray_sth_spool_maxgb: "1"
   #  allow_thp_against_recommendations: "true"
-  #  extensions_dir: "/opt/anzograph/lib/udx/cpp,/opt/anzograph/lib/udx/jvm"
+  #  extensions_dir: "/opt/anzograph/lib/udx"
