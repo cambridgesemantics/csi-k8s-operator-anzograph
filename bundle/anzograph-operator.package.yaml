@@ -1,5 +1,5 @@
 channels:
-- currentCSV: anzograph-operator.v1.3.3
+- currentCSV: anzograph-operator.v1.3.400
   name: stable
 defaultChannel: stable
 packageName: anzograph-operator
