@@ -1,5 +1,5 @@
 ###########################################################
-# Copyright (c) 2017-2020 Cambridge Semantics Incorporated.
+# Copyright (c) 2016-2020 Cambridge Semantics Incorporated.
 # All rights reserved.
 ###########################################################
 
@@ -1009,7 +1009,6 @@ spec:
                                 x-kubernetes-int-or-string: true
                             required:
                             - port
-                            - protocol
                             type: object
                           type: array
                           x-kubernetes-list-map-keys:
@@ -3111,7 +3110,6 @@ spec:
                                 x-kubernetes-int-or-string: true
                             required:
                             - port
-                            - protocol
                             type: object
                           type: array
                           x-kubernetes-list-map-keys:

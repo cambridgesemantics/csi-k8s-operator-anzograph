@@ -59,7 +59,7 @@ spec:
     - description: AnzoGraph is the Schema for the anzographs API
       kind: AnzoGraph
       name: anzographs.anzograph.clusters.cambridgesemantics.com
-      displayName: AnzoGraph Operator
+      displayName: AnzoGraph
       version: v1
       resources:
       - kind: Service
@@ -88,15 +88,11 @@ spec:
         version: v1
       specDescriptors:
       - description: Resource Specification for AnzoGraph DB
-        displayName: DB Expected Replicas
-        path: dbSpec.size
-        x-descriptors:
-        - 'urn:alm:descriptor:com.tectonic.ui:podCount'
+        displayName: DB Spec
+        path: dbSpec
       - description: Resource Specification for AnzoGraph Frontend(UI)
-        displayName: Frontend Expected Replicas
-        path: frontendSpec.size
-        x-descriptors:
-        - 'urn:alm:descriptor:com.tectonic.ui:podCount'
+        displayName: Frontend Spec
+        path: frontendSpec
       - description: Is AnzoGraph Frontend(UI) Selected For Deployment?
         displayName: Frontend Enabled
         path: deployFrontend

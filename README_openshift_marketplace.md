@@ -10,21 +10,21 @@
 
 ## Optional Prerequisites
 ### Create Project(Namespace) if required
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/projects_screen.png" width="67%">
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/create-openshift-project.png" width="67%">
+<img src="images/projects_screen.png" width="67%">
+<img src="images/create-openshift-project.png" width="67%">
 
 ## Steps to deploy AnzoGraph Operator
 
 #### Login to OpenShift Console:
 
 #### Operators --> OperatorHub --> Search Anzograph  Operator --> Install
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-operatorhub-anzograph-search.png" width="67%">
+<img src="images/kubeadmin-operatorhub-anzograph-search.png" width="67%">
 
 #### Select Namespace where you want to deploy the operator and click on Install
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-anzograph-operator-installdialog.png" width="67%">
+<img src="images/kubeadmin-anzograph-operator-installdialog.png" width="67%">
 
 #### Check Operator Installation Successful
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-install-operator.png" width="67%">
+<img src="images/kubeadmin-install-operator.png" width="67%">
 
 
 ## AnzoGraph Use Cases
@@ -138,12 +138,13 @@ spec:
 * Save the file and then run the following command to give OpenShift the SCC resource specification:
 * oc create -f scc.yml
 
+
 #### Operators --> Installed Operators --> AnzoGraph  Operator --> Create Instance
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-create-anzograph.png" width="67%">
+<img src="images/kubeadmin-create-anzograph.png" width="67%">
 
 #### Use either Form View or YAML View to set required properties, use **AnzoGraph CustomResource(CR) Specification** for definitiions
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-install-anzograph-form.png" width="67%">
-<img src="https://cambridgesemantics.com/assets/k8s/csi-k8s-operator-anzograph/v1.3.0/images/kubeadmin-install-anzograph-yaml.png" width="67%">
+<img src="images/kubeadmin-install-anzograph-form.png" width="67%">
+<img src="images/kubeadmin-install-anzograph-yaml.png" width="67%">
 
 ## AnzoGraph CustomResource(CR) Specification
 

@@ -84,38 +84,38 @@ For deploying AnzoGraph operator and clusters managed by it, user needs to enabl
 # Create Namespace
 $ kubectl create -f deploy/namespace.yaml
 # Setup Service Account
-$ kubectl create -f deploy/service_account.yaml --namespace <namespace>
+$ kubectl create -f deploy/service_account.yaml
 # Setup RBAC
-$ kubectl create -f deploy/role.yaml --namespace <namespace>
-$ kubectl create -f deploy/role_binding.yaml --namespace <namespace>
+$ kubectl create -f deploy/role.yaml
+$ kubectl create -f deploy/role_binding.yaml
 $ kubectl create -f deploy/cluster_role.yaml
 $ kubectl create -f deploy/cluster_role_binding.yaml
 $ kubectl create -f deploy/psp.yaml
 # Setup the CRD
 $ kubectl create -f deploy/crds/anzograph.clusters.cambridgesemantics.com_anzographs_crd.yaml
 # Deploy anzograph-operator
-$ kubectl create -f deploy/operator.yaml --namespace <namespace>
+$ kubectl create -f deploy/operator.yaml
 # Deploy AnzoGraph Custom Resource(CR), i.e. AnzoGraph cluster deployment
-$ kubectl apply -f deploy/crds/anzograph_v1_anzograph_cr.yaml --namespace <namespace>
+$ kubectl apply -f deploy/crds/anzograph_v1_anzograph_cr.yaml
 ```
 
-**NOTE** One needs to edit deploy/operator.yaml, deploy/crds/anzograph_v1beta1_anzograph_cr.yaml with right docker image details.
+**NOTE** One needs to edit deploy/operator.yaml, deploy/crds/anzograph_v1beta1_anzograph_cr.yaml with right docker image details. Also, namespace needs to be specified in other YAML files.
 
 ## Steps to delete AnzoGraph CR and anzograph-operator
 
 ```sh
 # Delete AnzoGraph CR
-kubectl delete -f deploy/crds/anzograph_v1_anzograph_cr.yaml --namespace <namespace>
+kubectl delete -f deploy/crds/anzograph_v1_anzograph_cr.yaml
 # Delete anzograph-operator
-kubectl delete -f deploy/operator.yaml --namespace <namespace>
+kubectl delete -f deploy/operator.yaml
 # Delete RBAC
-kubectl delete -f deploy/role.yaml --namespace <namespace>
-kubectl delete -f deploy/role_binding.yaml --namespace <namespace>
+kubectl delete -f deploy/role.yaml
+kubectl delete -f deploy/role_binding.yaml
 kubectl delete -f deploy/cluster_role.yaml
 kubectl delete -f deploy/cluster_role_binding.yaml
 kubectl delete -f deploy/psp.yaml
 # Delete Service Account
-kubectl delete -f deploy/service_account.yaml --namespace <namespace>
+kubectl delete -f deploy/service_account.yaml
 # Delete CRD
 kubectl delete -f deploy/crds/anzograph.clusters.cambridgesemantics.com_anzographs_crd.yaml
 ```
