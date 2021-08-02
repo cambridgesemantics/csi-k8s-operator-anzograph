@@ -1,0 +1,57 @@
+apiVersion: anzograph.clusters.cambridgesemantics.com/v2
+kind: AnzoGraph
+metadata:
+  name: azg01
+spec:
+  db:
+    nodeConfig:
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app_data: anzograph-data-grpc
+            app_mgmt: anzograph-mgmt-grpc
+        serviceName: anzograph-azg01
+        template:
+          metadata:
+            labels:
+              app_data: anzograph-data-grpc
+              app_mgmt: anzograph-mgmt-grpc
+          spec:
+            containers:
+            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.3.2
+              name: db
+              resources:
+                limits:
+                  cpu: 8000m
+                  memory: 8Gi
+                requests:
+                  cpu: 8000m
+                  memory: 8Gi
+            serviceAccountName: anzograph-operator
+  deployFrontend: false
+  frontend:
+    nodeConfig:
+      spec:
+        replicas: 1
+        selector:
+          matchLabels:
+            app_mgmt: anzograph-frontend
+        serviceName: anzograph-azg01
+        template:
+          metadata:
+            labels:
+              app_mgmt: anzograph-frontend
+          spec:
+            containers:
+            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.3.2
+              name: frontend
+              resources:
+                limits:
+                  cpu: 2000m
+                  memory: 4Gi
+                requests:
+                  cpu: 2000m
+                  memory: 4Gi
+            serviceAccountName: anzograph-operator
+status: {}

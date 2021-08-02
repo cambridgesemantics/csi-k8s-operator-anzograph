@@ -4,19 +4,19 @@
 
 ## Supported tags
 
-* [1.3.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.0/images/sha256-fe2b8a772ac1e16de63a851782331e34f69458f70e69ebca69e2befd18a619fa?context=explore) , [1.3.0-latest](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.0-latest/images/sha256-fe2b8a772ac1e16de63a851782331e34f69458f70e69ebca69e2befd18a619fa?context=explore) , [1.2.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.2.0/images/sha256-06d7fba03093bc21b2004bbbff4be7afb910697c59a92208f02e10bbfe27919a?context=explore) , [1.2.0-latest](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.2.0-latest/images/sha256-06d7fba03093bc21b2004bbbff4be7afb910697c59a92208f02e10bbfe27919a?context=explore) , 1.2.0-{{ build }}
+* [2.0.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.0/images/sha256-7939cf95f94c448c425caa9fb200ee1f1b1aa51422ffb80edc9b629de9cd4408?context=explore) , [1.3.5](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.5/images/sha256-06ec451214af65f08fa75d94a83ab5f4fdbf8ff481958388f7c9594603bea03d?context=explore) , [1.3.5-latest](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.5-latest/images/sha256-06ec451214af65f08fa75d94a83ab5f4fdbf8ff481958388f7c9594603bea03d?context=explore) , [1.3.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.0/images/sha256-fe2b8a772ac1e16de63a851782331e34f69458f70e69ebca69e2befd18a619fa?context=explore) , [1.3.0-latest](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.0-latest/images/sha256-fe2b8a772ac1e16de63a851782331e34f69458f70e69ebca69e2befd18a619fa?context=explore) , [1.2.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.2.0/images/sha256-06d7fba03093bc21b2004bbbff4be7afb910697c59a92208f02e10bbfe27919a?context=explore) , [1.2.0-latest](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.2.0-latest/images/sha256-06d7fba03093bc21b2004bbbff4be7afb910697c59a92208f02e10bbfe27919a?context=explore) , 1.2.0-{{ build }}
 
 ## About [AnzoGraph](https://cambridgesemantics.com/anzograph)
 
-AnzoGraph® DB is the only MPP (massively parallel processing) native graph [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) ([GOLAP](https://en.wikipedia.org/wiki/Online_analytical_processing?golap#Other_types))  database designed to accelerate data integration and scalable analytics with graph at performance levels that compare favorably with the industry-leading data warehouse analytics products.  AnzoGraph offers a variety of advanced analytics capabilities, including over 40 functions for regular data warehousing-style line-of-business analytics like [Aggregate grouping](https://docs.cambridgesemantics.com/anzograph/userdoc/grouping-sets.htm), [Views](https://docs.cambridgesemantics.com/anzograph/userdoc/named-views.htm), [Windowed Aggregates](https://docs.cambridgesemantics.com/anzograph/userdoc/window-aggs.htm), as well as [graph algorithms](https://docs.cambridgesemantics.com/anzograph/userdoc/graph-algorithms.htm),  and [Iinferencing](https://docs.cambridgesemantics.com/anzograph/userdoc/inferences.htm) at super-fast speeds. An SDK enables developers to add their own custom parallel bi-directional connectors, functions and aggregates that can perform in parallel across enterprise-scale knowledge-graphs. The product has been market tested and has been in production for several years at leading global corporations.
+AnzoGraph® DB is the only MPP (massively parallel processing) native graph [OLAP](https://en.wikipedia.org/wiki/Online_analytical_processing) ([GOLAP](https://en.wikipedia.org/wiki/Online_analytical_processing?golap#Other_types))  database designed to accelerate data integration and scalable analytics with graph at performance levels that compare favorably with the industry-leading data warehouse analytics products.  AnzoGraph offers a variety of advanced analytics capabilities, including over 40 functions for regular data warehousing-style line-of-business analytics like [Aggregate grouping](https://docs.cambridgesemantics.com/anzograph/userdoc/grouping-sets.htm), [Views](https://docs.cambridgesemantics.com/anzograph/userdoc/named-views.htm), [Windowed Aggregates](https://docs.cambridgesemantics.com/anzograph/userdoc/window-aggs.htm), as well as [graph algorithms](https://docs.cambridgesemantics.com/anzograph/userdoc/graph-algorithms.htm),  and [Inferencing](https://docs.cambridgesemantics.com/anzograph/userdoc/inferences.htm) at super-fast speeds. An SDK enables developers to add their own custom parallel bi-directional connectors, functions and aggregates that can perform in parallel across enterprise-scale knowledge-graphs. The product has been market tested and has been in production for several years at leading global corporations.
 
 **Project Status** stable
-**Operator Version** v1
+**Operator Version** v2
 
 ## Prerequisites
 
-* Kubernetes cluster, versions {1.18-1.14}
-* Kubectl, versions {1.18-1.14}
+* Kubernetes cluster, versions {1.20-1.16}
+* Kubectl, versions {1.20-1.16}
 
 ## Setting up prerequisites
 
@@ -81,97 +81,95 @@ You can connect to Kubernetes cluster hosted in public cloud service providers s
 For deploying AnzoGraph operator and clusters managed by it, user needs to enable RBAC and configure kubernetes objects mentioned below.
 
 ```sh
-# Create Namespace
-$ kubectl create -f deploy/namespace.yaml
+# Create Namespace, mention name of your namespace in metadata.name
+$ kubectl create -f deploy/v1_namespace_default.yaml
 # Setup Service Account
-$ kubectl create -f deploy/service_account.yaml
+$ kubectl create -f deploy/default_v1_serviceaccount_anzograph-operator.yaml --namespace <namespace>
 # Setup RBAC
-$ kubectl create -f deploy/role.yaml
-$ kubectl create -f deploy/role_binding.yaml
-$ kubectl create -f deploy/cluster_role.yaml
-$ kubectl create -f deploy/cluster_role_binding.yaml
-$ kubectl create -f deploy/psp.yaml
+$ kubectl create -f deploy/default_rbac.authorization.k8s.io_v1_role_anzograph-operator.yaml --namespace <namespace>
+$ kubectl create -f deploy/default_rbac.authorization.k8s.io_v1_rolebinding_anzograph-operator.yaml --namespace <namespace>
+$ kubectl create -f deploy/rbac.authorization.k8s.io_v1_clusterrole_anzograph-operator.yaml
+$ kubectl create -f deploy/rbac.authorization.k8s.io_v1_clusterrolebinding_anzograph-operator.yaml
+$ kubectl create -f deploy/policy_v1beta1_podsecuritypolicy_anzograph-privileged.yaml
 # Setup the CRD
-$ kubectl create -f deploy/crds/anzograph.clusters.cambridgesemantics.com_anzographs_crd.yaml
+$ kubectl create -f deploy/crds/apiextensions.k8s.io_v1_customresourcedefinition_anzographs.anzograph.clusters.cambridgesemantics.com.yaml
 # Deploy anzograph-operator
-$ kubectl create -f deploy/operator.yaml
-# Deploy AnzoGraph Custom Resource(CR), i.e. AnzoGraph cluster deployment
-$ kubectl apply -f deploy/crds/anzograph_v1_anzograph_cr.yaml
+$ kubectl create -f deploy/default_apps_v1_deployment_anzograph-operator.yaml --namespace <namespace>
+# Deploy AnzoGraph Custom Resource(CR), i.e. AnzoGraph cluster deployment (#1)
+# NOTE: This CR is designed for images in Red Hat registry. Skip this step to deploy CR for different environment.
+$ kubectl apply -f deploy/default_anzograph.clusters.cambridgesemantics.com_v2_anzograph_azg01.yaml --namespace <namespace>
+# Deploy AnzoGraph Custom Resource(CR) (#2)
+$ kubectl apply -f config/samples/anzograph_v2_anzograph.yaml --namespace <namespace>
 ```
 
-**NOTE** One needs to edit deploy/operator.yaml, deploy/crds/anzograph_v1beta1_anzograph_cr.yaml with right docker image details. Also, namespace needs to be specified in other YAML files.
+**NOTE** One needs to edit operator deployment, CR deployment with right docker image details.
 
 ## Steps to delete AnzoGraph CR and anzograph-operator
 
 ```sh
-# Delete AnzoGraph CR
-kubectl delete -f deploy/crds/anzograph_v1_anzograph_cr.yaml
+# Delete AnzoGraph CR (#1)
+$ kubectl delete -f deploy/default_anzograph.clusters.cambridgesemantics.com_v2_anzograph_azg01.yaml --namespace <namespace>
+# Delete AnzoGraph CR (#2)
+$ kubectl delete -f config/samples/anzograph_v2_anzograph.yaml --namespace <namespace>
 # Delete anzograph-operator
-kubectl delete -f deploy/operator.yaml
+$ kubectl delete -f deploy/default_apps_v1_deployment_anzograph-operator.yaml --namespace <namespace>
 # Delete RBAC
-kubectl delete -f deploy/role.yaml
-kubectl delete -f deploy/role_binding.yaml
-kubectl delete -f deploy/cluster_role.yaml
-kubectl delete -f deploy/cluster_role_binding.yaml
-kubectl delete -f deploy/psp.yaml
+$ kubectl delete -f deploy/default_rbac.authorization.k8s.io_v1_role_anzograph-operator.yaml --namespace <namespace>
+$ kubectl delete -f deploy/default_rbac.authorization.k8s.io_v1_rolebinding_anzograph-operator.yaml --namespace <namespace>
+$ kubectl delete -f deploy/rbac.authorization.k8s.io_v1_clusterrole_anzograph-operator.yaml
+$ kubectl delete -f deploy/rbac.authorization.k8s.io_v1_clusterrolebinding_anzograph-operator.yaml
+$ kubectl delete -f deploy/policy_v1beta1_podsecuritypolicy_anzograph-privileged.yaml
 # Delete Service Account
-kubectl delete -f deploy/service_account.yaml
+$ kubectl delete -f deploy/default_v1_serviceaccount_anzograph-operator.yaml --namespace <namespace>
 # Delete CRD
-kubectl delete -f deploy/crds/anzograph.clusters.cambridgesemantics.com_anzographs_crd.yaml
+$ kubectl delete -f deploy/crds/apiextensions.k8s.io_v1_customresourcedefinition_anzographs.anzograph.clusters.cambridgesemantics.com.yaml
 ```
 
 ## AnzoGraph CustomResource(CR) Specification
 
-The following table lists the configurable parameters for AnzoGraph and their default values.(CR API Version: v1beta1)
+The following table lists the configurable parameters for AnzoGraph and their default values.(CR API Version: v2)
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `metadata.name` | Name of CR | azg02 |
+| `metadata.name` | Name of CR | |
 | `metadata.namespace` | Namespace of CR | |
 | `metadata.labels` | Dictionary of (key: val) as labels of CR | |
-| `spec.serviceAccountName` | Name of service account for deploying CR | anzograph-operator |
-| `spec.allInOneImage.registry` | Docker image registry for AnzoGraph All-in-One image | docker.io |
-| `spec.allInOneImage.name` | Docker image name for AnzoGraph All-in-one image | cambridgesemantics/anzograph |
-| `spec.allInOneImage.tag` | Docker image tag for AnzoGraph All-in-one image | latest |
-| `spec.allInOneImage.pullPolicy` | Docker image pull policy for AnzoGraph All-in-one image | IfNotPresent |
-| `spec.dbSpec.image.registry` | Docker image registry for AnzoGraph DB image | docker.io |
-| `spec.dbSpec.image.name` | Docker image name for AnzoGraph DB image | cambridgesemantics/anzograph-db |
-| `spec.dbSpec.image.tag` | Docker image tag for AnzoGraph DB image | latest |
-| `spec.dbSpec.image.pullPolicy` | Docker image pull policy for AnzoGraph DB image | IfNotPresent |
-| `spec.dbSpec.dbImage.size` | No of AnzoGraph DB cluster pods | 1 |
-| `spec.dbSpec.resources.requests.cpu` | Resource request for AnzoGraph leader container, number of CPUs | 2000m |
-| `spec.dbSpec.resources.requests.memory` | Resource request for AnzoGraph leader container, memory size in MB | 7000Mi |
-| `spec.dbSpec.resources.limits.cpu` | Resource limit for AnzoGraph leader container, number of CPUs | 16000m |
-| `spec.dbSpec.resources.limits.memory` | Resource limit for AnzoGraph leader container, memory size in MB | 48000Mi |
-| `spec.dbSpec.tolerations` | AnzoGraph database pod tolerations | commented, please uncomment to add value |
-| `spec.dbSpec.affinity` | AnzoGraph database pod node affinity | |
-| `spec.dbSpec.service` | Database loadbalancer service attributes, of type v1.Service | commented, please uncomment to add value |
-| `spec.dbSpec.volumes` | List of persistent volumes for AnzoGraph DB | commented, please uncomment to add value |
-| `spec.dbSpec.volumes.[i].name` | Name for persistent volume | |
-| `spec.dbSpec.volumes.[i].mountPath` | Path where persistent volume should be mounted inside container | |
-| `spec.dbSpec.volumes.[i].pv` | Attributes to configure persistent volume, of type v1.PersistentVolume | |
-| `spec.dbSpec.volumes.[i].pvc` | Attributes to configure persistent volume claim, of type v1.PersistentVolumeClaim | |
-| `spec.frontendSpec.image.registry` | Docker image registry for AnzoGraph Frontend image | docker.io |
-| `spec.frontendSpec.image.name` | Docker image name for AnzoGraph Frontend image | cambridgesemantics/anzograph-frontend |
-| `spec.frontendSpec.image.tag` | Docker image tag for AnzoGraph Frontend image | latest |
-| `spec.frontendSpec.image.pullPolicy` | Docker image pull policy for AnzoGraph Frontend image | IfNotPresent |
-| `spec.frontendSpec.resources.requests.cpu` | Resource request for AnzoGraph frontend container, number of CPUs | 2000m |
-| `spec.frontendSpec.resources.requests.memory` | Resource request for AnzoGraph frontend container, memory size in MB | 4000Mi |
-| `spec.frontendSpec.resources.limits.cpu` | Resource limit for AnzoGraph frontend container, number of CPUs | 8000m |
-| `spec.frontendSpec.resources.limits.memory` | Resource limit for AnzoGraph frontend container, memory size in MB | 16000Mi |
-| `spec.frontendSpec.tolerations` | AnzoGraph frontend pod tolerations | commented, please uncomment to add value |
-| `spec.frontendSpec.affinity` | AnzoGraph frontend pod node affinity | |
-| `spec.frontendSpec.service` | Frontend loadbalancer service attributes, of type v1.Service | commented, please uncomment to add value |
+| `spec.db.nodeConfig.spec` | Configuration specification for AnzoGraph DB pods | |
+| `spec.db.nodeConfig.spec.replicas` | Number of pods for AnzoGraph DB | 1 |
+| `spec.db.nodeConfig.spec.serviceName` | Name of headless service for AnzoGraph | anzograph-<metadata.name> |
+| `spec.db.nodeConfig.spec.template.spec.serviceAccountName` | Service account name for pods | anzograph-operator |
+| `spec.db.nodeConfig.spec.template.spec.containers.x.Name` | Name of AnzoGraph DB container | db |
+| `spec.db.nodeConfig.spec.template.spec.containers.y.Name` | Name of sidecar container, if sidecar logging is enabled | logger |
+| `spec.db.deployLoggerSidecar` | Set this to true to enable sidecar logging | false |
+| `spec.db.service` | Database loadbalancer service attributes, of type v1.Service | commented, please uncomment to add value |
+| `spec.db.volumes` | List of persistent volumes for AnzoGraph DB | commented, please uncomment to add value |
+| `spec.db.volumes.[i].name` | Name for persistent volume | |
+| `spec.db.volumes.[i].mountPath` | Path where persistent volume should be mounted inside container | |
+| `spec.db.volumes.[i].pv` | Attributes to configure persistent volume, of type v1.PersistentVolume | |
+| `spec.db.volumes.[i].pvc` | Attributes to configure persistent volume claim, of type v1.PersistentVolumeClaim | |
+| `spec.db.volumes.[i].deletePVC` | Set this to true if you want to delete PVC after CR deletion | false |
+| `spec.db.settingsProfile` | Named settings bundles/profiles to configure AnzoGraph | standalone |
+| `spec.db.settingsConfContent` | When settingsProfile is 'custom', use this to override default settings(dictionary of key: val) | |
+| `spec.db.license` | User provided license string(BYOL) | "" |
+| `spec.frontend.nodeConfig.spec` | Configuration specification for AnzoGraph Frontend pods | |
+| `spec.frontend.nodeConfig.spec.replicas` | Number of pods for AnzoGraph Frontend | 1 |
+| `spec.frontend.nodeConfig.spec.serviceName` | Name of headless service for AnzoGraph | anzograph-<metadata.name> |
+| `spec.frontend.nodeConfig.spec.template.spec.serviceAccountName` | Service account name for pods | anzograph-operator |
+| `spec.frontend.nodeConfig.spec.template.spec.containers.x.Name` | Name of AnzoGraph Frontend container | frontend |
+| `spec.frontend.service` | Database loadbalancer service attributes, of type v1.Service | commented, please uncomment to add value |
+| `spec.frontend.volumes` | List of persistent volumes for AnzoGraph DB | commented, please uncomment to add value |
+| `spec.frontend.volumes.[i].name` | Name for persistent volume | |
+| `spec.frontend.volumes.[i].mountPath` | Path where persistent volume should be mounted inside container | |
+| `spec.frontend.volumes.[i].pv` | Attributes to configure persistent volume, of type v1.PersistentVolume | |
+| `spec.frontend.volumes.[i].pvc` | Attributes to configure persistent volume claim, of type v1.PersistentVolumeClaim | |
+| `spec.frontend.volumes.[i].deletePVC` | Set this to true if you want to delete PVC after CR deletion | false |
 | `spec.uiCredentials.uiCredentials` | Name of existing secret for frontend credentials | |
 | `spec.uiCredentials.grpcCredentials` | Name of existing secret for gRPC credentials | |
 | `spec.uiCredentials.keystoreCredentials` | Name of existing secret for frontend keystore | |
 | `spec.deployFrontend` | Set this to true if you want to deploy frontend for AnzoGraph DB | false |
-| `spec.license` | User provided license string(BYOL) | "" |
 | `spec.uiUserCerts.uiUserServiceCert` | AnzoGraph UI access certificate | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserServiceKey` | AnzoGraph UI access certificate key | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserCACert` | AnzoGraph UI access ca certificate | commented, please uncomment to add value |
-| `spec.azgSettingsProfile` | Named settings bundles/profiles to configure AnzoGraph | standalone |
-| `spec.azgSettings` | When azgSettingsProfile is 'custom', use this to override default settings(dictionary of key: val) | |
 
 ## References
 

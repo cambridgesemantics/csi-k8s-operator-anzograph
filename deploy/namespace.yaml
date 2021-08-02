@@ -1,9 +1,0 @@
-###########################################################
-# Copyright (c) 2016-2020 Cambridge Semantics Incorporated.
-# All rights reserved.
-###########################################################
-
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: default

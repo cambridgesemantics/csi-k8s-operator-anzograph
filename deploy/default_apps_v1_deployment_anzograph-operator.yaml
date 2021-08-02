@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: anzograph-operator
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+  template:
+    metadata:
+      labels:
+        control-plane: controller-manager
+    spec:
+      containers:
+      - args:
+        - --leader-elect
+        command:
+        - /manager
+        env:
+        - name: WATCH_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: RELATED_IMAGE_ANZOGRAPH_ALLINONE
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph:2.3.2
+        - name: RELATED_IMAGE_ANZOGRAPH_DB
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.3.2
+        - name: RELATED_IMAGE_ANZOGRAPH_FRONTEND
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.3.2
+        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.0
+        imagePullPolicy: Always
+        name: manager
+        securityContext:
+          allowPrivilegeEscalation: false
+      serviceAccountName: anzograph-operator
+      terminationGracePeriodSeconds: 10
