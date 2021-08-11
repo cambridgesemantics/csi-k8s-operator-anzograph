@@ -31,7 +31,7 @@ spec:
           value: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.3.2
         - name: RELATED_IMAGE_ANZOGRAPH_FRONTEND
           value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.3.2
-        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.0
+        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.1
         imagePullPolicy: Always
         name: manager
         securityContext:
