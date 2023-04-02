@@ -26,12 +26,12 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: RELATED_IMAGE_ANZOGRAPH_ALLINONE
-          value: registry.connect.redhat.com/cambridgesemantics/anzograph:2.3.2
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph:2.5.11
         - name: RELATED_IMAGE_ANZOGRAPH_DB
-          value: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.3.2
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.5.11
         - name: RELATED_IMAGE_ANZOGRAPH_FRONTEND
-          value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.3.2
-        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.1
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.5.11
+        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.2
         imagePullPolicy: Always
         name: manager
         securityContext:

@@ -2,16 +2,111 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    alm-examples: '[]'
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "anzograph.clusters.cambridgesemantics.com/v2",
+          "kind": "AnzoGraph",
+          "metadata": {
+            "name": "azg01"
+          },
+          "spec": {
+            "db": {
+              "nodeConfig": {
+                "spec": {
+                  "replicas": 1,
+                  "selector": {
+                    "matchLabels": {
+                      "app_data": "anzograph-data-grpc",
+                      "app_mgmt": "anzograph-mgmt-grpc"
+                    }
+                  },
+                  "serviceName": "anzograph-azg01",
+                  "template": {
+                    "metadata": {
+                      "labels": {
+                        "app_data": "anzograph-data-grpc",
+                        "app_mgmt": "anzograph-mgmt-grpc"
+                      }
+                    },
+                    "spec": {
+                      "containers": [
+                        {
+                          "image": "registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.5.11",
+                          "name": "db",
+                          "resources": {
+                            "limits": {
+                              "cpu": "8000m",
+                              "memory": "8Gi"
+                            },
+                            "requests": {
+                              "cpu": "8000m",
+                              "memory": "8Gi"
+                            }
+                          }
+                        }
+                      ],
+                      "serviceAccountName": "anzograph-operator"
+                    }
+                  }
+                }
+              }
+            },
+            "deployFrontend": false,
+            "frontend": {
+              "nodeConfig": {
+                "spec": {
+                  "replicas": 1,
+                  "selector": {
+                    "matchLabels": {
+                      "app_mgmt": "anzograph-frontend"
+                    }
+                  },
+                  "serviceName": "anzograph-azg01",
+                  "template": {
+                    "metadata": {
+                      "labels": {
+                        "app_mgmt": "anzograph-frontend"
+                      }
+                    },
+                    "spec": {
+                      "containers": [
+                        {
+                          "image": "registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.5.11",
+                          "name": "frontend",
+                          "resources": {
+                            "limits": {
+                              "cpu": "2000m",
+                              "memory": "4Gi"
+                            },
+                            "requests": {
+                              "cpu": "2000m",
+                              "memory": "4Gi"
+                            }
+                          }
+                        }
+                      ],
+                      "serviceAccountName": "anzograph-operator"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "status": {}
+        }
+      ]
     capabilities: Basic Install
     categories: Database, Big Data
     certified: "true"
-    containerImage: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:OPERATOR_VERSION
-    createdAt: CSV_CREATION_DATE
+    containerImage: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.2
+    createdAt: 2022-11-18
     description: kubernetes operator for AnzoGraph DB
+    operators.operatorframework.io/builder: operator-sdk-v1.25.2
+    operators.operatorframework.io/project_layout: unknown
     repository: ""
     support: Cambridge Semantics
-  name: anzograph-operator.v0.0.0
+  name: anzograph-operator.v2.0.203
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -94,7 +189,7 @@ spec:
     cluster on Red Hat K8S environment.
 
     ### Installation
-     Refer [installation instructions]( https://github.com/cambridgesemantics/csi-k8s-operator-anzograph/blob/vOPERATOR_VERSION/README_openshift_marketplace.md )
+     Refer [installation instructions]( https://github.com/cambridgesemantics/csi-k8s-operator-anzograph/blob/v2.0.2/README_openshift_marketplace.md )
 
     ### Documentation
 
@@ -109,7 +204,165 @@ spec:
     mediatype: image/png
   install:
     spec:
-      deployments: null
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumes
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - persistentvolumeclaims
+          verbs:
+          - get
+          - list
+          - watch
+          - update
+        - apiGroups:
+          - storage.k8s.io
+          resources:
+          - storageclasses
+          verbs:
+          - get
+          - list
+          - watch
+        - apiGroups:
+          - extensions
+          resourceNames:
+          - nfs-provisioner
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - use
+        - apiGroups:
+          - anzograph.clusters.cambridgesemantics.com
+          resources:
+          - anzographs
+          - anzographs/finalizers
+          verbs:
+          - '*'
+        serviceAccountName: anzograph-operator
+      deployments:
+      - label:
+          control-plane: controller-manager
+        name: anzograph-operator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                control-plane: controller-manager
+            spec:
+              containers:
+              - args:
+                - --leader-elect
+                command:
+                - /manager
+                env:
+                - name: WATCH_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.annotations['olm.targetNamespaces']
+                - name: RELATED_IMAGE_ANZOGRAPH_ALLINONE
+                  value: registry.connect.redhat.com/cambridgesemantics/anzograph:2.5.11
+                - name: RELATED_IMAGE_ANZOGRAPH_DB
+                  value: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.5.11
+                - name: RELATED_IMAGE_ANZOGRAPH_FRONTEND
+                  value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.5.11
+                image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator:2.0.2
+                imagePullPolicy: Always
+                name: manager
+                resources: {}
+                securityContext:
+                  allowPrivilegeEscalation: false
+              serviceAccountName: anzograph-operator
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - '*'
+        - apiGroups:
+          - anzograph.clusters.cambridgesemantics.com
+          resources:
+          - '*'
+          verbs:
+          - '*'
+        - apiGroups:
+          - apps
+          resources:
+          - daemonsets
+          - deployments
+          - replicasets
+          - statefulsets
+          verbs:
+          - '*'
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - create
+          - get
+          - list
+          - update
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          - endpoints
+          - events
+          - persistentvolume
+          - persistentvolumeclaims
+          - pods
+          - secrets
+          - services
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - monitoring.coreos.com
+          resources:
+          - servicemonitors
+          verbs:
+          - create
+          - get
+        - apiGroups:
+          - policy
+          resourceNames:
+          - privileged
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - use
+        - apiGroups:
+          - security.openshift.io
+          resourceNames:
+          - anyuid
+          resources:
+          - securitycontextconstraints
+          verbs:
+          - use
+        serviceAccountName: anzograph-operator
     strategy: deployment
   installModes:
   - supported: true
@@ -125,11 +378,18 @@ spec:
   - Database
   links:
   - name: Anzograph Operator
-    url: https://github.com/cambridgesemantics/csi-k8s-operator-anzograph/blob/vOPERATOR_VERSION/README_openshift_marketplace.md
+    url: https://github.com/cambridgesemantics/csi-k8s-operator-anzograph/blob/v2.0.2/README_openshift_marketplace.md
   maintainers:
   - email: frank@cambridgesemantics.com
     name: Frank Schwichtenberg
   maturity: stable
   provider:
     name: Cambridge Semantics Inc.
-  version: 0.0.0
+  relatedImages:
+  - image: registry.connect.redhat.com/cambridgesemantics/anzograph:2.5.11
+    name: anzograph-allinone
+  - image: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.5.11
+    name: anzograph-db
+  - image: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.5.11
+    name: anzograph-frontend
+  version: 2.0.203

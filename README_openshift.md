@@ -12,7 +12,7 @@
 ## Prerequisites
 
 * Red Hat Openshift Container Platform on Kubernetes, version >= 4.3
-* Kubectl, versions {1.20-1.16}
+* Kubectl, versions {1.24-1.16}
 
 ## AnzoGraph Docker Images Used for Deployment
 When you deploy AnzoGraph cluster using operator, following are the set of images used for actual cluster deployments. We have given reference docker commands to download the latest releases for each of them below.

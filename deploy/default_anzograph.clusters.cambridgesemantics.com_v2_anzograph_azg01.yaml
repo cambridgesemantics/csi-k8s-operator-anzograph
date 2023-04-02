@@ -19,7 +19,7 @@ spec:
               app_mgmt: anzograph-mgmt-grpc
           spec:
             containers:
-            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.3.2
+            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-db:2.5.11
               name: db
               resources:
                 limits:
@@ -44,7 +44,7 @@ spec:
               app_mgmt: anzograph-frontend
           spec:
             containers:
-            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.3.2
+            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend:2.5.11
               name: frontend
               resources:
                 limits:
