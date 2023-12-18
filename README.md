@@ -23,8 +23,8 @@ AnzoGraph® DB is the only MPP (massively parallel processing) native graph [OLA
 
 ## Prerequisites
 
-* Kubernetes cluster, versions {1.24-1.16}
-* Kubectl, versions {1.24-1.16}
+* Kubernetes cluster, versions {1.28-1.16}
+* Kubectl, versions {1.28-1.16}
 
 ## Setting up prerequisites
 
