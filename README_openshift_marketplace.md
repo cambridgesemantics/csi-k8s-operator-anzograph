@@ -4,8 +4,8 @@
 
 ## Prerequisites
 
-* Red Hat Openshift Container Platform on Kubernetes, version >= 4.3
-* Kubectl, versions {1.28-1.16}
+* Red Hat Openshift Container Platform on Kubernetes, version >= 4.8
+* Kubectl, versions {1.29-1.25}
 * Anzograph Operator Subscription
 
 ## Optional Prerequisites
@@ -203,6 +203,8 @@ The following table lists the configurable parameters for AnzoGraph and their de
 | `spec.uiUserCerts.uiUserServiceCert` | AnzoGraph UI access certificate | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserServiceKey` | AnzoGraph UI access certificate key | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserCACert` | AnzoGraph UI access ca certificate | commented, please uncomment to add value |
+| `spec.dbCertificate` | AnzoGraph DB certificate resource to be issued from cert-manager | commented, please uncomment to add value |
+| `spec.frontendCertificate` | AnzoGraph UI certificate resource to be issued from cert-manager | commented, please uncomment to add value |
 
 ## References
 

@@ -26,6 +26,12 @@ rules:
   verbs:
   - '*'
 - apiGroups:
+  - cert-manager.io
+  resources:
+  - certificates
+  verbs:
+  - '*'
+- apiGroups:
   - coordination.k8s.io
   resources:
   - leases
@@ -60,14 +66,6 @@ rules:
   verbs:
   - create
   - get
-- apiGroups:
-  - policy
-  resourceNames:
-  - privileged
-  resources:
-  - podsecuritypolicies
-  verbs:
-  - use
 - apiGroups:
   - security.openshift.io
   resourceNames:

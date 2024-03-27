@@ -24,8 +24,8 @@ AnzoGraph® DB is the only MPP (massively parallel processing) native graph [OLA
 
 ## Prerequisites
 
-* Kubernetes cluster, versions {1.28-1.16}
-* Kubectl, versions {1.28-1.16}
+* Kubernetes cluster, versions {1.29-1.25}
+* Kubectl, versions {1.29-1.25}
 
 ## Setting up prerequisites
 
@@ -87,7 +87,7 @@ You can connect to Kubernetes cluster hosted in public cloud service providers s
 
 ## RBAC Prerequisites
 
-For deploying AnzoGraph operator and clusters managed by it, user needs to enable RBAC and configure kubernetes objects mentioned below.
+For deploying AnzoGraph operator and clusters managed by it, user needs to enable RBAC and configure kubernetes objects mentioned below. The following steps will help to deploy AnzoGraph operator and custom resource(CR) in default namespace. If user wants to change the namespace, the files from deploy directory need to be edited to match the respective namespace name.
 
 ```sh
 # Create Namespace, mention name of your namespace in metadata.name
@@ -99,7 +99,6 @@ $ kubectl create -f deploy/default_rbac.authorization.k8s.io_v1_role_anzograph-o
 $ kubectl create -f deploy/default_rbac.authorization.k8s.io_v1_rolebinding_anzograph-operator.yaml --namespace <namespace>
 $ kubectl create -f deploy/rbac.authorization.k8s.io_v1_clusterrole_anzograph-operator.yaml
 $ kubectl create -f deploy/rbac.authorization.k8s.io_v1_clusterrolebinding_anzograph-operator.yaml
-$ kubectl create -f deploy/policy_v1beta1_podsecuritypolicy_anzograph-privileged.yaml
 # Setup the CRD
 $ kubectl create -f deploy/crds/apiextensions.k8s.io_v1_customresourcedefinition_anzographs.anzograph.clusters.cambridgesemantics.com.yaml
 # Deploy anzograph-operator
@@ -127,12 +126,101 @@ $ kubectl delete -f deploy/default_rbac.authorization.k8s.io_v1_role_anzograph-o
 $ kubectl delete -f deploy/default_rbac.authorization.k8s.io_v1_rolebinding_anzograph-operator.yaml --namespace <namespace>
 $ kubectl delete -f deploy/rbac.authorization.k8s.io_v1_clusterrole_anzograph-operator.yaml
 $ kubectl delete -f deploy/rbac.authorization.k8s.io_v1_clusterrolebinding_anzograph-operator.yaml
-$ kubectl delete -f deploy/policy_v1beta1_podsecuritypolicy_anzograph-privileged.yaml
 # Delete Service Account
 $ kubectl delete -f deploy/default_v1_serviceaccount_anzograph-operator.yaml --namespace <namespace>
 # Delete CRD
 $ kubectl delete -f deploy/crds/apiextensions.k8s.io_v1_customresourcedefinition_anzographs.anzograph.clusters.cambridgesemantics.com.yaml
 ```
+
+## Persistence
+The AnzoGraph DB custom resource utilizes PVs (disks) to save the AnzoGraph DB config and, if enabled, persisted data. The default policy(no annotations are specified) will delete these PVCs/PVs when the AnzoGraph custom resource is deleted. It is often preferable to change this default behavior using annotations specified in next section.
+
+## AnzoGraph CustomResource(CR) annotations
+  Annotation keys and values can only be strings. All types must be string-encoded
+
+| Name      | Description | Default |
+|-----------|-------------|---------|
+| `cambridgesemantics/configStorageInGB` | Size for config Persistent Volume Claim | 5Gi |
+| `cambridgesemantics/spillStorageInGB` | Size for spill Persistent Volume Claim | 32Gi |
+| `cambridgesemantics/dataStorageInGB` | Size for data Persistent Volume Claim |  |
+| `cambridgesemantics/retainConfigStorage` | Whether to retain config Persistent Volume Claim | false |
+| `cambridgesemantics/retainSpillStorage` | Whether to retain spill Persistent Volume Claim | false |
+| `cambridgesemantics/retainDataStorage` | Whether to retain data Persistent Volume Claim | false |
+| `cambridgesemantics.com/skip-lb-check` | Whether to skip ensuring of service LoadBalancer | false |
+
+You can opt for config, spill and data persistence by setting `cambridgesemantics/retainConfigStorage`, `cambridgesemantics/retainSpillStorage` and `cambridgesemantics/retainDataStorage` to `true`.
+
+Please note that data persistence does not support, if
+
+* you change the "shape" of the AnzoGraph cluster (different slice/vCPU, different count of AZG database nodes)
+* you change the database container of the CR.
+
+Please make sure you export your (in memory) data of the AZG instance before you redeploy and re-load the data again.
+
+
+## Upgrading AnzoGraph Custom Resource
+Please note that AnzoGraph dynamic deployments(embedded from within anzo) do not currently support custom resource upgrades, from Anzo user interface. In case of standalone installs, there are a few manual steps needed to be performed before `kubectl apply`. We intend to introduce the complete support for upgrade in future releases.
+
+1. Persistence should be enabled in the original CR deployment. This can be achieved by setting
+```yaml
+annotations:
+  cambridgesemantics/configStorageInGB: 5Gi
+  cambridgesemantics/retainConfigStorage: "true"
+  cambridgesemantics/dataStorageInGB: "30"
+  cambridgesemantics/retainDataStorage: "true"
+  cambridgesemantics/spillStorageInGB: 32Gi
+  cambridgesemantics/retainSpillStorage: "false"
+```
+
+2. Stop AnzoGraph Database
+```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR},apps.kubernetes.io/pod-index=0" --output=name \
+    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'azgctl -stop'
+```
+
+3. Prepare the database for new UDXs
+    ```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR}" --output=name \
+    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'rm -rf lib/udx/{.activated,*}'
+    ```
+
+4. Remove spool files in /opt/anzograph/spill/
+
+    ```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR}" --output=name \
+    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'rm -f spill/*'
+    ```
+
+5. Delete persisted data (you have a backup, right?)
+
+    ```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR}" --output=name \
+    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'rm -fr persistence/*'
+    ```
+
+6. Uninstall current AnzoGraph CR
+
+    ```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" delete anzograph/${AZG_CR}
+    ```
+
+7. Install CR with same name and updated CR yaml file
+
+    ```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" apply -f <cr-yaml-file>
+    ```
 
 ## AnzoGraph CustomResource(CR) Specification
 
@@ -179,6 +267,9 @@ The following table lists the configurable parameters for AnzoGraph and their de
 | `spec.uiUserCerts.uiUserServiceCert` | AnzoGraph UI access certificate | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserServiceKey` | AnzoGraph UI access certificate key | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserCACert` | AnzoGraph UI access ca certificate | commented, please uncomment to add value |
+| `spec.dbCertificate` | AnzoGraph DB certificate resource to be issued from cert-manager | commented, please uncomment to add value |
+| `spec.frontendCertificate` | AnzoGraph UI certificate resource to be issued from cert-manager | commented, please uncomment to add value |
+
 
 ## References
 

@@ -11,8 +11,8 @@
 
 ## Prerequisites
 
-* Red Hat Openshift Container Platform on Kubernetes, version >= 4.3
-* Kubectl, versions {1.28-1.16}
+* Red Hat Openshift Container Platform on Kubernetes, version >= 4.8
+* Kubectl, versions {1.29-1.25}
 
 ## AnzoGraph Docker Images Used for Deployment
 When you deploy AnzoGraph cluster using operator, following are the set of images used for actual cluster deployments. We have given reference docker commands to download the latest releases for each of them below.
@@ -135,6 +135,8 @@ The following table lists the configurable parameters for AnzoGraph and their de
 | `spec.uiUserCerts.uiUserServiceCert` | AnzoGraph UI access certificate | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserServiceKey` | AnzoGraph UI access certificate key | commented, please uncomment to add value |
 | `spec.uiUserCerts.uiUserCACert` | AnzoGraph UI access ca certificate | commented, please uncomment to add value |
+| `spec.dbCertificate` | AnzoGraph DB certificate resource to be issued from cert-manager | commented, please uncomment to add value |
+| `spec.frontendCertificate` | AnzoGraph UI certificate resource to be issued from cert-manager | commented, please uncomment to add value |
 
 ## References
 

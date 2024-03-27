@@ -26,12 +26,12 @@ spec:
             fieldRef:
               fieldPath: metadata.namespace
         - name: RELATED_IMAGE_ANZOGRAPH_ALLINONE
-          value: registry.connect.redhat.com/cambridgesemantics/anzograph@sha256:a292d1136415b3bbfe45458bb0c3f4f1d8fc05f4b27d78dbd4ecdf7c82ab45c1
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph@sha256:b6d3339966161c5d5ed6bb9808b0199ed819a8f98683f6fa2b9cdba19b3bef66
         - name: RELATED_IMAGE_ANZOGRAPH_DB
-          value: registry.connect.redhat.com/cambridgesemantics/anzograph-db@sha256:78b1478911319f797b960976375a508ed3036ada389d03223323fcff607f372b
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph-db@sha256:97584695da2af0cf8b4af7a53808f587a787c84504518fe447997dbbf78fee69
         - name: RELATED_IMAGE_ANZOGRAPH_FRONTEND
-          value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend@sha256:b623351cadf076fa99b9a2d3ab224750c6d661204dad83324175c0fe415fe965
-        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator@sha256:f7aa1e91f8dbb103fcaf9c9c44387c8d62230cfbeb333df4367f26d7776a2e83
+          value: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend@sha256:7b4299fcbeffec21208f4e2d3032f24b08736f76bf7bffdfdb9e1777ba8949c9
+        image: registry.connect.redhat.com/cambridgesemantics/anzograph-operator@sha256:167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4
         imagePullPolicy: Always
         name: manager
         securityContext:
