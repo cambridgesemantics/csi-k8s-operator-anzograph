@@ -6,9 +6,12 @@
 
 | Release | Tags                                       |
 | :---:   | :---                                       |
+| [3.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.1/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo) | [3.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.1/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo), 3.1.1-{{ build }} |
+| [3.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.0/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo) | [3.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.0/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo), 3.1.0-{{ build }} |
 | [2.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.1/images/sha256-f7aa1e91f8dbb103fcaf9c9c44387c8d62230cfbeb333df4367f26d7776a2e83?context=repo) | [2.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.1/images/sha256-f7aa1e91f8dbb103fcaf9c9c44387c8d62230cfbeb333df4367f26d7776a2e83?context=repo), 2.1.1-{{ build }} |
 | [2.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.0-20230401143749/images/sha256-881e67d77ae0ba9a48ad02da1115e11a96b89e93f561554a9698dcc91f5d4242?context=explore) | [2.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.0-20230401143749/images/sha256-881e67d77ae0ba9a48ad02da1115e11a96b89e93f561554a9698dcc91f5d4242?context=explore), 2.1.0-{{ build }} |
-|  2.0.2(https://hub.docker.com/layers/257823639/cambridgesemantics/anzograph-operator/2.0.2/images/sha256-17e66805745778a580711c030f694f0f1ff6a3a11cb8db1bd24b8c6ef577889d?context=repo)   |  2.0.2(https://hub.docker.com/layers/257823639/cambridgesemantics/anzograph-operator/2.0.2/images/sha256-17e66805745778a580711c030f694f0f1ff6a3a11cb8db1bd24b8c6ef577889d?context=repo), 2.0.2-{{ build }}  |
+| [2.0.3](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.3-20240605074132/images/sha256-747d03738e30d1c47db328533297956ae474cd29eec346860db655fd0b78e0bf?context=repo) | [2.0.3](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.3-20240605074132/images/sha256-747d03738e30d1c47db328533297956ae474cd29eec346860db655fd0b78e0bf?context=repo), 2.0.3-{{ build }} |
+|  [2.0.2](https://hub.docker.com/layers/257823639/cambridgesemantics/anzograph-operator/2.0.2/images/sha256-17e66805745778a580711c030f694f0f1ff6a3a11cb8db1bd24b8c6ef577889d?context=repo)   |  [2.0.2](https://hub.docker.com/layers/257823639/cambridgesemantics/anzograph-operator/2.0.2/images/sha256-17e66805745778a580711c030f694f0f1ff6a3a11cb8db1bd24b8c6ef577889d?context=repo), 2.0.2-{{ build }}  |
 |  [2.0.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.1/images/sha256-9776b24bbb6146e367234c4963b5dfabfba9bcda8d7eb7e6cb42f9adbe2fbd72?context=explore)  |  [2.0.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.1/images/sha256-9776b24bbb6146e367234c4963b5dfabfba9bcda8d7eb7e6cb42f9adbe2fbd72?context=explore), 2.0.1-{{ build }}  |
 |  [2.0.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.0/images/sha256-7939cf95f94c448c425caa9fb200ee1f1b1aa51422ffb80edc9b629de9cd4408?context=explore)  |  [2.0.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.0/images/sha256-7939cf95f94c448c425caa9fb200ee1f1b1aa51422ffb80edc9b629de9cd4408?context=explore), 2.0.0-{{ build }}  |
 |  [1.3.5](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.5/images/sha256-06ec451214af65f08fa75d94a83ab5f4fdbf8ff481958388f7c9594603bea03d?context=explore)  |  [1.3.5](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.5/images/sha256-06ec451214af65f08fa75d94a83ab5f4fdbf8ff481958388f7c9594603bea03d?context=explore), 1.3.5-{{ build }}  |
@@ -164,11 +167,11 @@ Please note that AnzoGraph dynamic deployments(embedded from within anzo) do not
 1. Persistence should be enabled in the original CR deployment. This can be achieved by setting
 ```yaml
 annotations:
-  cambridgesemantics/configStorageInGB: 5Gi
+  cambridgesemantics/configStorageInGB: "5"
   cambridgesemantics/retainConfigStorage: "true"
   cambridgesemantics/dataStorageInGB: "30"
   cambridgesemantics/retainDataStorage: "true"
-  cambridgesemantics/spillStorageInGB: 32Gi
+  cambridgesemantics/spillStorageInGB: "32"
   cambridgesemantics/retainSpillStorage: "false"
 ```
 
@@ -188,25 +191,7 @@ annotations:
     | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'rm -rf lib/udx/{.activated,*}'
     ```
 
-4. Remove spool files in /opt/anzograph/spill/
-
-    ```sh
-    export AZG_NS=default
-    export AZG_CR=azg01
-    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR}" --output=name \
-    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'rm -f spill/*'
-    ```
-
-5. Delete persisted data (you have a backup, right?)
-
-    ```sh
-    export AZG_NS=default
-    export AZG_CR=azg01
-    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR}" --output=name \
-    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'rm -fr persistence/*'
-    ```
-
-6. Uninstall current AnzoGraph CR
+4. Uninstall current AnzoGraph CR
 
     ```sh
     export AZG_NS=default
@@ -214,12 +199,23 @@ annotations:
     kubectl --namespace="${AZG_NS}" delete anzograph/${AZG_CR}
     ```
 
-7. Install CR with same name and updated CR yaml file
+5. Install CR with same name and updated CR yaml file
 
     ```sh
     export AZG_NS=default
     export AZG_CR=azg01
     kubectl --namespace="${AZG_NS}" apply -f <cr-yaml-file>
+    ```
+
+6. Reset AnzoGraph DB database of new CR deployment
+
+    Data that AnzoGraph DB persists on disk is not portable between AnzoGraph DB versions. It is also incompatible after making configuration changes that alter the way data gets distributed in memory, such as changing the vCPU or node count. The incompatibility of persisted data can be addressed by re-initializing the database after the change or upgrade. Note that this will erase ALL DATA persisted on disk. You need to make sure to write the in memory data to an external staging location and re-load that data after the new instance of the AnzoGraph DB has been deployed and its data state has been initialized as described in this step.
+
+    ```sh
+    export AZG_NS=default
+    export AZG_CR=azg01
+    kubectl --namespace="${AZG_NS}" get pod --selector="app_mgmt=anzograph-mgmt-grpc,cluster_name=${AZG_CR},apps.kubernetes.io/pod-index=0" --output=name \
+    | xargs -I{} kubectl --namespace="${AZG_NS}" exec {} -- bash -c 'azgctl -restart -init'
     ```
 
 ## AnzoGraph CustomResource(CR) Specification
