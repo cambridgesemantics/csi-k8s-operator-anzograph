@@ -6,17 +6,19 @@
 
 | Release | Tags                                       |
 | :---:   | :---                                       |
-| [3.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.1/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo) | [3.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.1/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo), 3.1.1-{{ build }} |
-| [3.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.0/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo) | [3.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/3.1.0/images/sha256-167319a5f3c60b2787fd5500518adabf6a76e5ed3566712032363818f4066fb4?context=repo), 3.1.0-{{ build }} |
-| [2.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.1/images/sha256-f7aa1e91f8dbb103fcaf9c9c44387c8d62230cfbeb333df4367f26d7776a2e83?context=repo) | [2.1.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.1/images/sha256-f7aa1e91f8dbb103fcaf9c9c44387c8d62230cfbeb333df4367f26d7776a2e83?context=repo), 2.1.1-{{ build }} |
-| [2.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.0-20230401143749/images/sha256-881e67d77ae0ba9a48ad02da1115e11a96b89e93f561554a9698dcc91f5d4242?context=explore) | [2.1.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.1.0-20230401143749/images/sha256-881e67d77ae0ba9a48ad02da1115e11a96b89e93f561554a9698dcc91f5d4242?context=explore), 2.1.0-{{ build }} |
-| [2.0.3](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.3-20240605074132/images/sha256-747d03738e30d1c47db328533297956ae474cd29eec346860db655fd0b78e0bf?context=repo) | [2.0.3](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.3-20240605074132/images/sha256-747d03738e30d1c47db328533297956ae474cd29eec346860db655fd0b78e0bf?context=repo), 2.0.3-{{ build }} |
-|  [2.0.2](https://hub.docker.com/layers/257823639/cambridgesemantics/anzograph-operator/2.0.2/images/sha256-17e66805745778a580711c030f694f0f1ff6a3a11cb8db1bd24b8c6ef577889d?context=repo)   |  [2.0.2](https://hub.docker.com/layers/257823639/cambridgesemantics/anzograph-operator/2.0.2/images/sha256-17e66805745778a580711c030f694f0f1ff6a3a11cb8db1bd24b8c6ef577889d?context=repo), 2.0.2-{{ build }}  |
-|  [2.0.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.1/images/sha256-9776b24bbb6146e367234c4963b5dfabfba9bcda8d7eb7e6cb42f9adbe2fbd72?context=explore)  |  [2.0.1](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.1/images/sha256-9776b24bbb6146e367234c4963b5dfabfba9bcda8d7eb7e6cb42f9adbe2fbd72?context=explore), 2.0.1-{{ build }}  |
-|  [2.0.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.0/images/sha256-7939cf95f94c448c425caa9fb200ee1f1b1aa51422ffb80edc9b629de9cd4408?context=explore)  |  [2.0.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/2.0.0/images/sha256-7939cf95f94c448c425caa9fb200ee1f1b1aa51422ffb80edc9b629de9cd4408?context=explore), 2.0.0-{{ build }}  |
-|  [1.3.5](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.5/images/sha256-06ec451214af65f08fa75d94a83ab5f4fdbf8ff481958388f7c9594603bea03d?context=explore)  |  [1.3.5](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.5/images/sha256-06ec451214af65f08fa75d94a83ab5f4fdbf8ff481958388f7c9594603bea03d?context=explore), 1.3.5-{{ build }}  |
-|  [1.3.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.0/images/sha256-fe2b8a772ac1e16de63a851782331e34f69458f70e69ebca69e2befd18a619fa?context=explore)  |  [1.3.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.3.0/images/sha256-fe2b8a772ac1e16de63a851782331e34f69458f70e69ebca69e2befd18a619fa?context=explore), 1.3.0-{{ build }}  |
-|  [1.2.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.2.0/images/sha256-06d7fba03093bc21b2004bbbff4be7afb910697c59a92208f02e10bbfe27919a?context=explore)  |  [1.2.0](https://hub.docker.com/layers/cambridgesemantics/anzograph-operator/1.2.0/images/sha256-06d7fba03093bc21b2004bbbff4be7afb910697c59a92208f02e10bbfe27919a?context=explore), 1.2.0-{{ build }}  |
+|  3.1.1   |  3.1.1, 3.1.1-{{ build }}  |
+|  3.1.0   |  3.1.0, 3.1.0-{{ build }}  |
+|  2.1.2   |  2.1.2, 2.1.2-{{ build }}  |
+|  2.1.1   |  2.1.1, 2.1.1-{{ build }}  |
+|  2.1.0   |  2.1.0, 2.1.0-{{ build }}  |
+|  2.0.4   |  2.0.4, 2.0.4-{{ build }}  |
+|  2.0.3   |  2.0.3, 2.0.3-{{ build }}  |
+|  2.0.2   |  2.0.2, 2.0.2-{{ build }}  |
+|  2.0.1   |  2.0.1, 2.0.1-{{ build }}  |
+|  2.0.0   |  2.0.0, 2.0.0-{{ build }}  |
+|  1.3.5   |  1.3.5, 1.3.5-{{ build }}  |
+|  1.3.0   |  1.3.0, 1.3.0-{{ build }}  |
+|  1.2.0   |  1.2.0, 1.2.0-{{ build }}  |
 
 ## About [AnzoGraph](https://cambridgesemantics.com/anzograph)
 
