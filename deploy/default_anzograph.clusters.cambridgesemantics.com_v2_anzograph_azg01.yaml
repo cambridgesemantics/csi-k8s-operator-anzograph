@@ -19,7 +19,7 @@ spec:
               app_mgmt: anzograph-mgmt-grpc
           spec:
             containers:
-            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-db@sha256:97584695da2af0cf8b4af7a53808f587a787c84504518fe447997dbbf78fee69
+            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-db@sha256:dff5d59d9e13bfb9b5f769b1fa8a3b036fd0afae49bec1ca247fd4180b2ed1bd
               name: db
               resources:
                 limits:
@@ -28,6 +28,12 @@ spec:
                 requests:
                   cpu: 8000m
                   memory: 8Gi
+            securityContext:
+              fsGroup: 1000
+              runAsNonRoot: true
+              runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             serviceAccountName: anzograph-operator
   deployFrontend: false
   frontend:
@@ -44,7 +50,7 @@ spec:
               app_mgmt: anzograph-frontend
           spec:
             containers:
-            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend@sha256:7b4299fcbeffec21208f4e2d3032f24b08736f76bf7bffdfdb9e1777ba8949c9
+            - image: registry.connect.redhat.com/cambridgesemantics/anzograph-frontend@sha256:becfc0983667e124d454a1fbfb29a7783e2acb311404290bad48960bad0e7d4b
               name: frontend
               resources:
                 limits:
@@ -53,5 +59,11 @@ spec:
                 requests:
                   cpu: 2000m
                   memory: 4Gi
+            securityContext:
+              fsGroup: 1000
+              runAsNonRoot: true
+              runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             serviceAccountName: anzograph-operator
 status: {}

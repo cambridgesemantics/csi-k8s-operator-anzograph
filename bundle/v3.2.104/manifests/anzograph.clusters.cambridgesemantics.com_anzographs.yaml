@@ -3,6 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.16.5
+  creationTimestamp: null
   name: anzographs.anzograph.clusters.cambridgesemantics.com
 spec:
   group: anzograph.clusters.cambridgesemantics.com
@@ -17595,3 +17596,9 @@ spec:
     storage: true
     subresources:
       status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: null
+  storedVersions: null
